@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.hampson.parabara.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/paraboxFragment"
+        android:name="com.hampson.parabara.ui.parabox.ParaboxFragment"
+        android:label="fragment_parabox"
+        tools:layout="@layout/fragment_parabox" />
+    <fragment
+        android:id="@+id/saleFragment"
+        android:name="com.hampson.parabara.ui.sale.SaleFragment"
+        android:label="fragment_sale"
+        tools:layout="@layout/fragment_sale" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.hampson.parabara.ui.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/mypageFragment"
+        android:name="com.hampson.parabara.ui.mypage.MypageFragment"
+        android:label="fragment_mypage"
+        tools:layout="@layout/fragment_mypage" />
+</navigation>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="판매"
+        android:textColor="#000000" />
+
+    <ScrollView
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:background="#ffffff"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:fitsSystemWindows="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="32dp"
+                android:paddingBottom="32dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:background="@drawable/background_border_gray">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_photo_camera_48" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="10dp"
+                    android:text="상품명" />
+
+                <EditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="상품명을 입력해주세요."
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:inputType="text"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/background_border_gray"
+                    android:padding="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="10dp"
+                    android:text="판매가격" />
+
+                <EditText
+                    android:id="@+id/editTextPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="판매가격을 입력해주세요."
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:inputType="number"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/background_border_gray"
+                    android:padding="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="10dp"
+                    android:text="상품설명" />
+
+                <EditText
+                    android:id="@+id/editTextContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="88dp"
+                    android:gravity="top"
+                    android:hint="상품설명을 입력해주세요."
+                    android:textSize="14sp"
+                    android:textColor="#000000"
+                    android:inputType="text"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/background_border_gray"
+                    android:padding="16dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="상품등록"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:layout_gravity="center"
+        android:background="@drawable/background_fill_mint"/>
+</LinearLayout>
