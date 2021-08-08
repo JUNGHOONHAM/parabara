@@ -15,11 +15,11 @@
         android:name="com.hampson.parabara.ui.parabox.ParaboxFragment"
         android:label="fragment_parabox"
         tools:layout="@layout/fragment_parabox" />
-    <fragment
-        android:id="@+id/saleFragment"
-        android:name="com.hampson.parabara.ui.sale.SaleFragment"
-        android:label="fragment_sale"
-        tools:layout="@layout/fragment_sale" />
+    <activity
+        android:id="@+id/saleActivity"
+        android:name="com.hampson.parabara.ui.sale.SaleActivity"
+        android:label="activity_sale"
+        tools:layout="@layout/activity_sale" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.hampson.parabara.ui.favorite.FavoriteFragment"

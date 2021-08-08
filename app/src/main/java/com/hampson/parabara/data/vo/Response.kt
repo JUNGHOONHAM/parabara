@@ -1,4 +1,4 @@
-package com.hampson.parabara.data.repository
+package com.hampson.parabara.data.vo
 
 import com.google.gson.annotations.SerializedName
 

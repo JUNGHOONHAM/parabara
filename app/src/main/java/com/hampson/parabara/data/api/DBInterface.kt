@@ -1,16 +1,19 @@
 package com.hampson.parabara.data.api
 
-import com.hampson.parabara.data.repository.Response
+import com.hampson.parabara.data.vo.Response
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface DBInterface {
 
-    @POST("api/v2/sms_auth/send_sms")
-    fun sendPhoneNumber(@Query("phone_number") phoneNumber: String): Single<Response>
+    @Multipart
+    @POST("api/product/upload")
+    fun imageUpload(@Part image: MultipartBody.Part): Single<Response>
 
-    @POST("api/v2/sms_auth/verified")
-    fun sendVerifiedNumber(@Query("phone_number") phoneNumber: String, @Query("token") token: String, @Query("verified_number") verifiedNumber: String): Single<Response>
+    @POST("api/product")
+    fun createProduct(@Query("title") title: String, @Query("price") price: Long,
+                      @Query("content") content: String, @Query("images") images: ArrayList<Long>): Single<Response>
 
 
 }

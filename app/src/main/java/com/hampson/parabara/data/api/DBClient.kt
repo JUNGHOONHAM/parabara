@@ -16,8 +16,6 @@ const val TOKEN = "MlQct4pW2tGw3BTew6G3gbkw"
 const val FIRST_PAGE = 1
 const val POST_PER_PAGE = 5
 
-
-
 object DBClient {
     fun getClient(context: Context): DBInterface {
         val requestInterceptor = Interceptor { chain ->
