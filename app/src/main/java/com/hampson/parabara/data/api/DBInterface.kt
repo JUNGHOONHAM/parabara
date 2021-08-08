@@ -15,5 +15,6 @@ interface DBInterface {
     fun createProduct(@Query("title") title: String, @Query("price") price: Long,
                       @Query("content") content: String, @Query("images") images: ArrayList<Long>): Single<Response>
 
-
+    @GET("api/product")
+    fun getProducts(@Query("page") page: Int, @Query("size") size: Int): Single<Response>
 }

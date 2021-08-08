@@ -14,7 +14,7 @@ const val BASE_URL = "https://api.recruit-test.parabara.kr"
 const val TOKEN = "MlQct4pW2tGw3BTew6G3gbkw"
 
 const val FIRST_PAGE = 1
-const val POST_PER_PAGE = 5
+const val POST_SIZE = 5
 
 object DBClient {
     fun getClient(context: Context): DBInterface {
