@@ -1,16 +1,19 @@
 package com.hampson.parabara.ui.home.product_info
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.hampson.parabara.data.repository.NetworkState
+import com.hampson.parabara.data.vo.DeleteResponse
 import com.hampson.parabara.data.vo.Product
+import com.hampson.parabara.data.vo.Response
 import io.reactivex.disposables.CompositeDisposable
 
 class ProductInfoViewModel (private val productInfoRepository: ProductInfoRepository, private val productId: Long) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
-    private val updateProductLiveData: MediatorLiveData<Product> = MediatorLiveData()
+    private val deleteProductLiveData: MediatorLiveData<DeleteResponse> = MediatorLiveData()
 
     val productLiveData : LiveData<Product> by lazy {
         productInfoRepository.getProduct(compositeDisposable, productId)
@@ -20,16 +23,16 @@ class ProductInfoViewModel (private val productInfoRepository: ProductInfoReposi
         productInfoRepository.getNetworkState()
     }
 
-    fun getUpdateLiveData() : LiveData<Product> {
-        return updateProductLiveData
+    fun getDeleteLiveData() : LiveData<DeleteResponse> {
+        return deleteProductLiveData
     }
 
-    fun updateProduct(id: Long, title: String, price: Long, content: String) {
-        val repositoryLiveData: LiveData<Product> =
-            productInfoRepository.updateProduct(compositeDisposable, id, title, price, content)
+    fun deleteProduct(productId: Long) {
+        val repositoryLiveData: LiveData<DeleteResponse> =
+            productInfoRepository.deleteProduct(compositeDisposable, productId)
 
-        updateProductLiveData.addSource(repositoryLiveData) {
-            updateProductLiveData.value = it
+        deleteProductLiveData.addSource(repositoryLiveData) {
+            deleteProductLiveData.value = it
         }
     }
 

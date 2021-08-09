@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.hampson.parabara.R
 import com.hampson.parabara.data.api.DBClient
 import com.hampson.parabara.data.api.DBInterface
+import com.hampson.parabara.data.repository.NetworkState
 import com.hampson.parabara.databinding.ActivityProductInfoBinding
 import com.hampson.parabara.ui.home.product_info.update.ProductUpdateActivity
 
@@ -52,6 +55,19 @@ class ProductInfoActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.getDeleteLiveData().observe(this, {
+            if (it.code == "SUCCESS" && it.status == 200) {
+                Toast.makeText(this, "상품삭제가 완료되었습니다.", Toast.LENGTH_LONG).show()
+
+                finish()
+            }
+        })
+
+        viewModel.networkState.observe(this, {
+            binding.progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            binding.textViewError.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
+        })
+
 
         binding.buttonUpdate.setOnClickListener {
             Intent(this, ProductUpdateActivity()::class.java).apply {
@@ -60,7 +76,7 @@ class ProductInfoActivity : AppCompatActivity() {
         }
 
         binding.buttonDelete.setOnClickListener {
-            viewModel
+            viewModel.deleteProduct(productId)
         }
     }
 

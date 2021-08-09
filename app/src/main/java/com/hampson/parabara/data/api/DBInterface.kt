@@ -1,5 +1,6 @@
 package com.hampson.parabara.data.api
 
+import com.hampson.parabara.data.vo.DeleteResponse
 import com.hampson.parabara.data.vo.Response
 import io.reactivex.Single
 import okhttp3.MultipartBody
@@ -25,4 +26,6 @@ interface DBInterface {
     fun updateProduct(@Query("id") id: Long, @Query("title") title: String,
                       @Query("price") price: Long, @Query("content") content: String): Single<Response>
 
+    @DELETE("api/product/{id}")
+    fun deleteProduct(@Path("id") id: Long): Single<DeleteResponse>
 }

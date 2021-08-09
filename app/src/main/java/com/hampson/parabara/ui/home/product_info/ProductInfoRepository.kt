@@ -1,10 +1,12 @@
 package com.hampson.parabara.ui.home.product_info
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.hampson.parabara.data.api.DBInterface
 import com.hampson.parabara.data.repository.ImageUploadNetworkDataSource
 import com.hampson.parabara.data.repository.NetworkState
 import com.hampson.parabara.data.repository.ProductNetworkDataSource
+import com.hampson.parabara.data.vo.DeleteResponse
 import com.hampson.parabara.data.vo.Product
 import com.hampson.parabara.data.vo.Response
 import io.reactivex.disposables.CompositeDisposable
@@ -21,11 +23,11 @@ class ProductInfoRepository (private val apiService : DBInterface) {
         return productNetworkDataSource.downloadedProduct
     }
 
-    fun updateProduct (compositeDisposable: CompositeDisposable, id: Long, title: String, price: Long, content: String) : LiveData<Product> {
+    fun deleteProduct (compositeDisposable: CompositeDisposable, productId: Long) : LiveData<DeleteResponse> {
         productNetworkDataSource = ProductNetworkDataSource(apiService, compositeDisposable)
-        productNetworkDataSource.updateProduct(id, title, price, content)
+        productNetworkDataSource.deleteProduct(productId)
 
-        return productNetworkDataSource.downloadedProduct
+        return productNetworkDataSource.downloadedDeleteResponse
     }
 
     fun getNetworkState(): LiveData<NetworkState> {

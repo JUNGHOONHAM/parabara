@@ -3,12 +3,14 @@ package com.hampson.parabara.ui.home.product_info.update
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.hampson.parabara.data.api.DBClient
 import com.hampson.parabara.data.api.DBInterface
+import com.hampson.parabara.data.repository.NetworkState
 import com.hampson.parabara.data.vo.Response
 import com.hampson.parabara.databinding.ActivityProductUpdateBinding
 
@@ -51,6 +53,11 @@ class ProductUpdateActivity() : AppCompatActivity() {
                 setResult(it)
                 finish()
             }
+        })
+
+        viewModel.networkState.observe(this, {
+            binding.progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            binding.textViewError.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
         })
 
         binding.buttonSave.setOnClickListener {

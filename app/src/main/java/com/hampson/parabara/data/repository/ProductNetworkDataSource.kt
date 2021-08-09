@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.hampson.parabara.data.api.DBInterface
+import com.hampson.parabara.data.vo.DeleteResponse
 import com.hampson.parabara.data.vo.Product
 import com.hampson.parabara.data.vo.Response
 import io.reactivex.disposables.CompositeDisposable
@@ -23,6 +24,10 @@ class ProductNetworkDataSource (private val apiService : DBInterface, private va
     private val _downloadedProduct = MutableLiveData<Product>()
     val downloadedProduct: MutableLiveData<Product>
         get() = _downloadedProduct
+
+    private val _downloadedDeleteResponse = MutableLiveData<DeleteResponse>()
+    val downloadedDeleteResponse: MutableLiveData<DeleteResponse>
+        get() = _downloadedDeleteResponse
 
     fun createProduct(title: String, price: Long, content: String, images: ArrayList<Long>) {
         try {
@@ -72,6 +77,26 @@ class ProductNetworkDataSource (private val apiService : DBInterface, private va
                     .subscribe(
                         {
                             _downloadedResponse.postValue(it)
+                            _networkState.postValue(NetworkState.LOADED)
+                        },
+                        {
+                            _networkState.postValue(NetworkState.ERROR)
+                        }
+                    )
+            )
+        } catch (e: Exception) {
+
+        }
+    }
+
+    fun deleteProduct(productId: Long) {
+        try {
+            compositeDisposable.add(
+                apiService.deleteProduct(productId)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(
+                        {
+                            _downloadedDeleteResponse.postValue(it)
                             _networkState.postValue(NetworkState.LOADED)
                         },
                         {
