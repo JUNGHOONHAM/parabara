@@ -63,4 +63,24 @@ class ProductNetworkDataSource (private val apiService : DBInterface, private va
 
         }
     }
+
+    fun updateProduct(id: Long, title: String, price: Long, content: String) {
+        try {
+            compositeDisposable.add(
+                apiService.updateProduct(id, title, price, content)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(
+                        {
+                            _downloadedResponse.postValue(it)
+                            _networkState.postValue(NetworkState.LOADED)
+                        },
+                        {
+                            _networkState.postValue(NetworkState.ERROR)
+                        }
+                    )
+            )
+        } catch (e: Exception) {
+
+        }
+    }
 }

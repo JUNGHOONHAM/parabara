@@ -1,6 +1,9 @@
 package com.hampson.parabara.ui.home.product_info
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +14,7 @@ import com.hampson.parabara.R
 import com.hampson.parabara.data.api.DBClient
 import com.hampson.parabara.data.api.DBInterface
 import com.hampson.parabara.databinding.ActivityProductInfoBinding
+import com.hampson.parabara.ui.home.product_info.update.ProductUpdateActivity
 
 
 class ProductInfoActivity : AppCompatActivity() {
@@ -22,6 +26,8 @@ class ProductInfoActivity : AppCompatActivity() {
     private lateinit var apiService: DBInterface
 
     private var productId: Long = -1
+
+    private val UPDATE_PRODUCT = 100
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +45,29 @@ class ProductInfoActivity : AppCompatActivity() {
         viewModel = getViewModel()
 
         viewModel.productLiveData.observe(this, {
-            binding.textViewProductName.text = it.title
-            binding.textViewPrice.text = it.price.toString() + "원"
-            binding.textViewContent.text = it.content
+            bindUI(it.title, it.price, it.content)
 
             for (image in it.images) {
                 bindImage(image)
             }
         })
 
+
+        binding.buttonUpdate.setOnClickListener {
+            Intent(this, ProductUpdateActivity()::class.java).apply {
+                putExtra("productId", productId)
+            }.run { startActivityForResult(this, UPDATE_PRODUCT) }
+        }
+
+        binding.buttonDelete.setOnClickListener {
+            viewModel
+        }
+    }
+
+    private fun bindUI(title: String, price: Long?, content: String) {
+        mBinding?.textViewProductName?.text = title
+        mBinding?.textViewPrice?.text = price.toString() + "원"
+        mBinding?.textViewContent?.text = content
     }
 
     private fun bindImage(data: String) {
@@ -61,6 +81,15 @@ class ProductInfoActivity : AppCompatActivity() {
         mBinding?.layoutImageList?.addView(imageView)
     }
 
+    @Override
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == UPDATE_PRODUCT && resultCode == Activity.RESULT_OK) {
+            bindUI(data?.getStringExtra("title").toString(), data?.getLongExtra("price", -1),
+                data?.getStringExtra("content").toString())
+        }
+    }
+
     private fun getViewModel(): ProductInfoViewModel {
         return ViewModelProvider(this, object : ViewModelProvider.Factory{
             override fun <T : ViewModel?> create(modelClass: Class<T>): T{
@@ -69,5 +98,4 @@ class ProductInfoActivity : AppCompatActivity() {
             }
         }).get(ProductInfoViewModel::class.java)
     }
-
 }

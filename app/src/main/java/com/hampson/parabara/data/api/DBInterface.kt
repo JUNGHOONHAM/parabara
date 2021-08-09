@@ -20,4 +20,9 @@ interface DBInterface {
 
     @GET("api/product/{id}")
     fun getProduct(@Path("id") id: Long): Single<Response>
+
+    @PUT("api/product")
+    fun updateProduct(@Query("id") id: Long, @Query("title") title: String,
+                      @Query("price") price: Long, @Query("content") content: String): Single<Response>
+
 }

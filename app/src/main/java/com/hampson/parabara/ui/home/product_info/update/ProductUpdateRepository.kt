@@ -1,4 +1,4 @@
-package com.hampson.parabara.ui.home.product_info
+package com.hampson.parabara.ui.home.product_info.update
 
 import androidx.lifecycle.LiveData
 import com.hampson.parabara.data.api.DBInterface
@@ -10,7 +10,7 @@ import com.hampson.parabara.data.vo.Response
 import io.reactivex.disposables.CompositeDisposable
 import okhttp3.MultipartBody
 
-class ProductInfoRepository (private val apiService : DBInterface) {
+class ProductUpdateRepository (private val apiService : DBInterface) {
 
     lateinit var productNetworkDataSource: ProductNetworkDataSource
 
@@ -21,11 +21,11 @@ class ProductInfoRepository (private val apiService : DBInterface) {
         return productNetworkDataSource.downloadedProduct
     }
 
-    fun updateProduct (compositeDisposable: CompositeDisposable, id: Long, title: String, price: Long, content: String) : LiveData<Product> {
+    fun updateProduct (compositeDisposable: CompositeDisposable, id: Long, title: String, price: Long, content: String) : LiveData<Response> {
         productNetworkDataSource = ProductNetworkDataSource(apiService, compositeDisposable)
         productNetworkDataSource.updateProduct(id, title, price, content)
 
-        return productNetworkDataSource.downloadedProduct
+        return productNetworkDataSource.downloadedResponse
     }
 
     fun getNetworkState(): LiveData<NetworkState> {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hampson.parabara">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,6 +28,8 @@
 
         <activity android:name=".ui.sale.SaleActivity" />
         <activity android:name=".ui.home.product_info.ProductInfoActivity" />
+        <activity android:name=".ui.home.product_info.update.ProductUpdateActivity"
+            tools:ignore="Instantiatable" />
     </application>
 
 </manifest>
