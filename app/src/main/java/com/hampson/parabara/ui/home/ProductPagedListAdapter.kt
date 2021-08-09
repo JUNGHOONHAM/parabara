@@ -14,6 +14,7 @@ import com.hampson.parabara.data.repository.NetworkState
 import com.hampson.parabara.data.vo.Product
 import com.hampson.parabara.databinding.ItemProductListBinding
 import com.hampson.parabara.databinding.NetworkStateItemBinding
+import com.hampson.parabara.ui.home.product_info.ProductInfoActivity
 
 class ProductPagedListAdapter(public val context: Context) : PagedListAdapter<Product, RecyclerView.ViewHolder>(
     ProductDiffCallback()
@@ -87,8 +88,8 @@ class ProductPagedListAdapter(public val context: Context) : PagedListAdapter<Pr
                 .into(binding.imageView)
 
             itemView.setOnClickListener {
-                Intent(context, JobInfoActivity::class.java).apply {
-                    putExtra("productId", job?.id)
+                Intent(context, ProductInfoActivity::class.java).apply {
+                    putExtra("productId", product?.id)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { context.startActivity(this) }
             }

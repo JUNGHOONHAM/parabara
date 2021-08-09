@@ -20,6 +20,10 @@ class ProductNetworkDataSource (private val apiService : DBInterface, private va
     val downloadedResponse: MutableLiveData<Response>
         get() = _downloadedResponse
 
+    private val _downloadedProduct = MutableLiveData<Product>()
+    val downloadedProduct: MutableLiveData<Product>
+        get() = _downloadedProduct
+
     fun createProduct(title: String, price: Long, content: String, images: ArrayList<Long>) {
         try {
             compositeDisposable.add(
@@ -28,6 +32,26 @@ class ProductNetworkDataSource (private val apiService : DBInterface, private va
                     .subscribe(
                         {
                             _downloadedResponse.postValue(it)
+                            _networkState.postValue(NetworkState.LOADED)
+                        },
+                        {
+                            _networkState.postValue(NetworkState.ERROR)
+                        }
+                    )
+            )
+        } catch (e: Exception) {
+
+        }
+    }
+
+    fun getProduct(productId: Long) {
+        try {
+            compositeDisposable.add(
+                apiService.getProduct(productId)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(
+                        {
+                            _downloadedProduct.postValue(it.product)
                             _networkState.postValue(NetworkState.LOADED)
                         },
                         {

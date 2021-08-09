@@ -17,4 +17,7 @@ interface DBInterface {
 
     @GET("api/product")
     fun getProducts(@Query("page") page: Int, @Query("size") size: Int): Single<Response>
+
+    @GET("api/product/{id}")
+    fun getProduct(@Path("id") id: Long): Single<Response>
 }

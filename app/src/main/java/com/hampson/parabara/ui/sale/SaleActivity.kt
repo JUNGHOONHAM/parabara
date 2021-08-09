@@ -33,7 +33,7 @@ class SaleActivity : AppCompatActivity() {
     private val PICK_FROM_ALBUM = 10
 
     private lateinit var viewModel: SaleViewModel
-    private lateinit var myPageRepository: SaleRepository
+    private lateinit var saleRepository: SaleRepository
     private lateinit var apiService: DBInterface
 
     private val selectImageList: ArrayList<Long> = ArrayList()
@@ -46,7 +46,7 @@ class SaleActivity : AppCompatActivity() {
         mBinding = binding
 
         apiService = DBClient.getClient(this)
-        myPageRepository = SaleRepository(apiService)
+        saleRepository = SaleRepository(apiService)
         viewModel = getViewModel()
 
         viewModel.getImageUploadResponse().observe(this, {
@@ -158,7 +158,7 @@ class SaleActivity : AppCompatActivity() {
         return ViewModelProvider(this, object : ViewModelProvider.Factory{
             override fun <T : ViewModel?> create(modelClass: Class<T>): T{
                 @Suppress("UNCHECKED_CAS T")
-                return SaleViewModel(myPageRepository) as T
+                return SaleViewModel(saleRepository) as T
             }
         }).get(SaleViewModel::class.java)
     }
